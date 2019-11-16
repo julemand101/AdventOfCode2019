@@ -20,7 +20,8 @@ void main() {
     });
     test('Solution', () {
       expect(solveA(File(dataFilePath).readAsLinesSync()), equals(406));
-    });});
+    });
+  });
 
   group('Part Two', () {
     test('Example 1', () {

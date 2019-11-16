@@ -7,7 +7,7 @@ dart:
 dart_task:
 - test: --platform vm
   xvfb: false
-- dartanalyzer
+- dartanalyzer: --fatal-warnings
 - dartfmt
 
 notifications:
