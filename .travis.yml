@@ -1,5 +1,4 @@
 language: dart
-sudo: false
 
 dart:
 - stable
@@ -7,8 +6,8 @@ dart:
 dart_task:
 - test: --platform vm
   xvfb: false
-- dartanalyzer
-- dartfmt: sdk
+- dartanalyzer: true
+- dartfmt: true
 
 notifications:
   email:
