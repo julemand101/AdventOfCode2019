@@ -6,7 +6,7 @@ int solveA(List<String> input) =>
 
 int solveB(List<String> input) {
   final parsedList = input.map(int.parse).toList();
-  var memory = <int>{};
+  final memory = <int>{};
   var frequency = 0;
 
   for (var i = 0; memory.add(frequency); i = (i + 1) % parsedList.length) {

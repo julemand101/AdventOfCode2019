@@ -13,7 +13,7 @@ void main() {
       expect(solveA(['+1', '+1', '+1']), equals(3));
     });
     test('Example 2', () {
-      expect(solveA(['+1', '+1', '-2']), equals(1));
+      expect(solveA(['+1', '+1', '-2']), equals(0));
     });
     test('Example 3', () {
       expect(solveA(['-1', '-2', '-3']), equals(-6));
