@@ -1,4 +1,5 @@
 language: dart
+os: linux
 
 dart:
 - stable
@@ -6,8 +7,8 @@ dart:
 dart_task:
 - test: --platform vm
   xvfb: false
-- dartanalyzer: true
-- dartfmt: true
+- dartanalyzer
+- dartfmt
 
 notifications:
   email:
