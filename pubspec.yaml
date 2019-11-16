@@ -1,0 +1,12 @@
+name: AdventOfCode2019
+description: Solutions for Advent of Code 2019.
+version: 0.0.1
+homepage: http://www.archlinux.dk
+author: Jacob Bang <julemand101@archlinux.dk>
+
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+
+dev_dependencies:
+  test: ^1.9.4
+  extra_pedantic: ^1.1.1+3
