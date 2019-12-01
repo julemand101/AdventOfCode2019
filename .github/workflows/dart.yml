@@ -20,5 +20,5 @@ jobs:
       run: dartanalyzer --fatal-infos --fatal-warnings .
       if: always()
     - name: Run dartfmt
-      run: dartfmt -n --set-exit-if-changed .
+      run: dartfmt -n .
       if: always()
