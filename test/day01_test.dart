@@ -19,7 +19,7 @@ void main() {
       expect(solveA(const ['1969']), equals(654));
     });
     test('Example 4', () {
-      expect(solveA(const ['100756']), equals(33583));
+      expect(solveA(const ['100756']), equals(-1));
     });
     test('Solution', () {
       expect(solveA(File(dataFilePath).readAsLinesSync()), equals(3152375));
