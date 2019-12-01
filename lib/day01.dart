@@ -10,7 +10,6 @@ int solveB(Iterable<String> input) =>
 int calcFuel(int mass) => (mass / 3).floor() - 2;
 
 int calcFuelRecursive(int mass) {
-  int result = calcFuel(mass);
-  return result > 0 ?
-  result + calcFuelRecursive(result) : 0;
+  final result = calcFuel(mass);
+  return result > 0 ? result + calcFuelRecursive(result) : 0;
 }
