@@ -9,49 +9,9 @@ const direction_left = 'L';
 const direction_right = 'R';
 
 int solveA(List<String> input) {
-  final globalPoints = <Point<int>>{};
-  final intersections = <Point<int>>{};
-
-  for (final line in input) {
-    final points = <Point<int>>{};
-    var currentPoint = const Point(0, 0);
-
-    for (final instruction in line.split(',')) {
-      final direction = instruction[0];
-      final length = int.parse(instruction.substring(1));
-
-      if (direction == direction_up) {
-        for (var i = 0; i < length; i++) {
-          points.add(currentPoint = currentPoint.moveUp());
-        }
-      } else if (direction == direction_down) {
-        for (var i = 0; i < length; i++) {
-          points.add(currentPoint = currentPoint.moveDown());
-        }
-      } else if (direction == direction_left) {
-        for (var i = 0; i < length; i++) {
-          points.add(currentPoint = currentPoint.moveLeft());
-        }
-      } else if (direction == direction_right) {
-        for (var i = 0; i < length; i++) {
-          points.add(currentPoint = currentPoint.moveRight());
-        }
-      } else {
-        throw Exception('Unsupported direction: $direction');
-      }
-    }
-
-    // Find intersections
-    for (final point in points) {
-      if (!globalPoints.add(point)) {
-        intersections.add(point);
-      }
-    }
-  }
-
   var manhattanDistanceOfClosestIntersection = 0;
 
-  for (final intersection in intersections) {
+  for (final intersection in findIntersections(input).keys) {
     final manhattanDistance = intersection.manhattanDistanceFromZero();
 
     if (manhattanDistanceOfClosestIntersection == 0 ||
@@ -61,6 +21,73 @@ int solveA(List<String> input) {
   }
 
   return manhattanDistanceOfClosestIntersection;
+}
+
+int solveB(List<String> input) => findIntersections(input).values.reduce(min);
+
+Map<Point<int>, int> findIntersections(List<String> input) {
+  final globalPoints = <Point<int>, int>{};
+  final intersections = <Point<int>, int>{};
+
+  for (final line in input) {
+    final points = <Point<int>, int>{};
+    var currentPoint = const Point(0, 0);
+    var currentDistance = 0;
+
+    for (final instruction in line.split(',')) {
+      final direction = instruction[0];
+      final length = int.parse(instruction.substring(1));
+
+      if (direction == direction_up) {
+        for (var i = 0; i < length; i++) {
+          currentPoint = currentPoint.moveUp();
+          currentDistance++;
+          if (!points.containsKey(currentPoint)) {
+            points[currentPoint] = currentDistance;
+          }
+        }
+      } else if (direction == direction_down) {
+        for (var i = 0; i < length; i++) {
+          currentPoint = currentPoint.moveDown();
+          currentDistance++;
+          if (!points.containsKey(currentPoint)) {
+            points[currentPoint] = currentDistance;
+          }
+        }
+      } else if (direction == direction_left) {
+        for (var i = 0; i < length; i++) {
+          currentPoint = currentPoint.moveLeft();
+          currentDistance++;
+          if (!points.containsKey(currentPoint)) {
+            points[currentPoint] = currentDistance;
+          }
+        }
+      } else if (direction == direction_right) {
+        for (var i = 0; i < length; i++) {
+          currentPoint = currentPoint.moveRight();
+          currentDistance++;
+          if (!points.containsKey(currentPoint)) {
+            points[currentPoint] = currentDistance;
+          }
+        }
+      } else {
+        throw Exception('Unsupported direction: $direction');
+      }
+    }
+
+    // Find intersections
+    for (final point in points.entries) {
+      if (!globalPoints.containsKey(point.key)) {
+        globalPoints[point.key] = point.value;
+      } else {
+        intersections[point.key] = globalPoints[point.key] + point.value;
+      }
+    }
+  }
+
+  print(intersections.values);
+
+  return intersections;
 }
 
 extension PointExtension on Point<int> {
