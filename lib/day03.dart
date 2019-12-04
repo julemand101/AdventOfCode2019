@@ -3,10 +3,11 @@
 
 import 'dart:math';
 
-int solveA(List<String> input) =>
+int solveA(Iterable<String> input) =>
     findIntersections(input).keys.map(manhattanDistance).reduce(min);
 
-int solveB(List<String> input) => findIntersections(input).values.reduce(min);
+int solveB(Iterable<String> input) =>
+    findIntersections(input).values.reduce(min);
 
 int manhattanDistance(Point<int> point) => point.x.abs() + point.y.abs();
 
@@ -19,7 +20,7 @@ final Map<String, moveOperation> moveOperationMap = {
   'R': (Point<int> point) => Point(point.x + 1, point.y) //  Right
 };
 
-Map<Point<int>, int> findIntersections(List<String> input) {
+Map<Point<int>, int> findIntersections(Iterable<String> input) {
   final globalPoints = <Point<int>, int>{};
   final intersections = <Point<int>, int>{};
 
