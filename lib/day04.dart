@@ -19,15 +19,25 @@ int solve(String input, bool checkLargeGroup) {
   return validPasswords;
 }
 
-final RegExp adjacentDigitsAreTheSameRegExp = RegExp(r'(.)\1');
-final RegExp partOfALargerGroup = RegExp(r'(.)\1+');
+final RegExp adjacentDigitsAreTheSameRegExp = RegExp(r'(.)\1+');
 
 bool validatePassword(String password, bool checkLargeGroup) {
   // It is a six-digit number.
   if (password.length != 6) return false;
 
-  // Two adjacent digits are the same (like 22 in 122345).
-  if (!adjacentDigitsAreTheSameRegExp.hasMatch(password)) return false;
+  final matches = adjacentDigitsAreTheSameRegExp.allMatches(password);
+  if (checkLargeGroup) {
+    // Part B: Part of a larger group of matching digits (but still allow the
+    // password if there are a group in the password with the size of exact 2)
+    if (matches.where((match) => match.group(0).length == 2).isEmpty) {
+      return false;
+    }
+  } else {
+    // Two adjacent digits are the same (like 22 in 122345).
+    if (matches.isEmpty) {
+      return false;
+    }
+  }
 
   // Going from left to right, the digits never decrease;
   for (var i = 1; i < password.length; i++) {
@@ -38,13 +48,6 @@ bool validatePassword(String password, bool checkLargeGroup) {
       return false;
     }
   }
-
-  // Part B: Bot part of a larger group of matching digits (but still allow
-  // the password if there are a group in the password with the size of exact 2)
-  if (checkLargeGroup &&
-      !partOfALargerGroup
-          .allMatches(password)
-          .any((match) => match.group(0).length == 2)) return false;
 
   return true;
 }
