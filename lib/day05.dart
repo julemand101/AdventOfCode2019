@@ -1,16 +1,11 @@
 //
 // https://adventofcode.com/2019/day/5
 
-const op_adds = '01';
-const op_multiplies = '02';
-const op_input = '03';
-const op_output = '04';
-const op_halt = '99';
-
 const mode_position = '0';
 const mode_immediate = '1';
 
 int solveA(String input) => compute(parse(input), [1]);
+int solveB(String input) => compute(parse(input), [5]);
 
 List<int> parse(String input) =>
     input.split(',').map(int.parse).toList(growable: false);
@@ -18,7 +13,8 @@ List<int> parse(String input) =>
 int compute(List<int> memory, List<int> input) {
   var pos = 0;
 
-  while (!memory[pos].toString().endsWith(op_halt)) {
+  // 99 = halt
+  while (!memory[pos].toString().endsWith('99')) {
     final parameter = memory[pos++].toString().padLeft(5, '0');
     final mode1 = parameter[2];
     final mode2 = parameter[1];
@@ -26,30 +22,57 @@ int compute(List<int> memory, List<int> input) {
     final opCode = parameter.substring(3);
 
     switch (opCode) {
-      case op_adds:
-        final pos1 = getValue(memory, pos++, mode1);
-        final pos2 = getValue(memory, pos++, mode2);
-        final pos3 = getValue(memory, pos++, mode_immediate);
+      case '01': // adds
+        final val1 = getValue(memory, pos++, mode1);
+        final val2 = getValue(memory, pos++, mode2);
+        final val3 = getValue(memory, pos++, mode_immediate);
 
-        memory[pos3] = pos1 + pos2;
+        memory[val3] = val1 + val2;
         break;
-      case op_multiplies:
-        final pos1 = getValue(memory, pos++, mode1);
-        final pos2 = getValue(memory, pos++, mode2);
-        final pos3 = getValue(memory, pos++, mode_immediate);
+      case '02': // multiplies
+        final val1 = getValue(memory, pos++, mode1);
+        final val2 = getValue(memory, pos++, mode2);
+        final val3 = getValue(memory, pos++, mode_immediate);
 
-        memory[pos3] = pos1 * pos2;
+        memory[val3] = val1 * val2;
         break;
-      case op_input:
-        final pos1 = getValue(memory, pos++, mode_immediate);
+      case '03': // input:
+        final val1 = getValue(memory, pos++, mode_immediate);
 
-        memory[pos1] = input.removeAt(0);
+        memory[val1] = input.removeAt(0);
         break;
-      case op_output:
-        final pos1 = getValue(memory, pos++, mode1);
-        if (pos1 != 0) {
-          return pos1;
+      case '04': // output
+        final val1 = getValue(memory, pos++, mode1);
+
+        if (val1 != 0) {
+          return val1;
         }
+        break;
+      case '05': // jump-if-true
+        final val1 = getValue(memory, pos++, mode1);
+        final val2 = getValue(memory, pos++, mode2);
+
+        if (val1 != 0) pos = val2;
+        break;
+      case '06': // jump-if-false
+        final val1 = getValue(memory, pos++, mode1);
+        final val2 = getValue(memory, pos++, mode2);
+
+        if (val1 == 0) pos = val2;
+        break;
+      case '07': // less than
+        final val1 = getValue(memory, pos++, mode1);
+        final val2 = getValue(memory, pos++, mode2);
+        final val3 = getValue(memory, pos++, mode_immediate);
+
+        memory[val3] = val1 < val2 ? 1 : 0;
+        break;
+      case '08': // equals
+        final val1 = getValue(memory, pos++, mode1);
+        final val2 = getValue(memory, pos++, mode2);
+        final val3 = getValue(memory, pos++, mode_immediate);
+
+        memory[val3] = val1 == val2 ? 1 : 0;
         break;
       default:
         throw Exception('OpCode $opCode is not supported');
