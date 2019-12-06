@@ -2,17 +2,10 @@
 // https://adventofcode.com/2019/day/6
 
 class ObjectInSpace {
-  final String name;
-  final List<ObjectInSpace> orbits = [];
+  ObjectInSpace orbitAround;
 
-  ObjectInSpace(this.name);
-
-  int get directIndirectOrbits => name == 'COM'
-      ? 0
-      : 1 + orbits.map((o) => o.directIndirectOrbits).reduce((a, b) => a + b);
-
-  @override
-  String toString() => orbits.length.toString();
+  int get directAndIndirectOrbits =>
+      orbitAround == null ? 0 : 1 + orbitAround.directAndIndirectOrbits;
 }
 
 int solveA(Iterable<String> inputs) {
@@ -20,12 +13,46 @@ int solveA(Iterable<String> inputs) {
 
   for (final input in inputs) {
     final parts = input.split(')');
-    final o1 = map.putIfAbsent(parts[0], () => ObjectInSpace(parts[0]));
-    final o2 = map.putIfAbsent(parts[1], () => ObjectInSpace(parts[1]));
-    o2.orbits.add(o1);
+    final o1 = map.putIfAbsent(parts[0], () => ObjectInSpace());
+    final o2 = map.putIfAbsent(parts[1], () => ObjectInSpace());
+    o2.orbitAround = o1;
   }
 
   return map.values
-      .map((o) => o.directIndirectOrbits)
+      .map((o) => o.directAndIndirectOrbits)
       .reduce((sum, e) => sum + e);
+}
+
+class ObjectInSpaceTwoWay {
+  final List<ObjectInSpaceTwoWay> orbitedBy = [];
+  ObjectInSpaceTwoWay orbitAround;
+  int distanceFromStart;
+
+  Iterable<ObjectInSpaceTwoWay> get orbitsNotVisited sync* {
+    if (orbitAround != null && orbitAround.distanceFromStart == null) {
+      yield orbitAround;
+    }
+
+    yield* orbitedBy.where((o) => o.distanceFromStart == null);
+  }
+
+  void visit([int distance = 0]) {
+    distanceFromStart = distance;
+    orbitsNotVisited.forEach((o) => o.visit(distance + 1));
+  }
+}
+
+int solveB(Iterable<String> inputs) {
+  final map = <String, ObjectInSpaceTwoWay>{};
+
+  for (final input in inputs) {
+    final parts = input.split(')');
+    final o1 = map.putIfAbsent(parts[0], () => ObjectInSpaceTwoWay());
+    final o2 = map.putIfAbsent(parts[1], () => ObjectInSpaceTwoWay());
+    o2.orbitAround = o1;
+    o1.orbitedBy.add(o2);
+  }
+
+  map['YOU'].orbitAround.visit();
+  return map['SAN'].orbitAround.distanceFromStart;
 }
