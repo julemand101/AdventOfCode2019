@@ -1,0 +1,17 @@
+// --- Day 7: Amplification Circuit ---
+// https://adventofcode.com/2019/day/7
+
+import 'dart:io';
+import 'package:test/test.dart';
+import 'package:AdventOfCode2019/day07.dart';
+
+const String dataFilePath = 'test/data/day07.txt';
+
+void main() {
+  group('Part One', () {
+    test('Solution', () {
+      expect(
+          solveA(File(dataFilePath).readAsLinesSync().first), equals(117312));
+    });
+  });
+}

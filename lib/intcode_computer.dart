@@ -54,9 +54,7 @@ class IntcodeComputer {
         case '04': // output
           final val1 = _getValue(memory, pos++, mode1);
 
-          if (val1 != 0) {
-            yield val1;
-          }
+          yield val1;
           break;
         case '05': // jump-if-true
           final val1 = _getValue(memory, pos++, mode1);
