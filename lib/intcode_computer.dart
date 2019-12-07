@@ -4,8 +4,9 @@ class IntcodeComputer {
 
   final List<int> memory;
 
-  IntcodeComputer(this.memory);
-  IntcodeComputer.fromString(String input) : memory = parse(input);
+  IntcodeComputer(List<int> memory)
+      : this.memory = memory.toList(growable: false);
+  IntcodeComputer.fromString(String input) : this.memory = parse(input);
 
   static List<int> parse(String input) =>
       input.split(',').map(int.parse).toList(growable: false);

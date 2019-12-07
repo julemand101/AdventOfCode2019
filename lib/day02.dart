@@ -18,17 +18,15 @@ int solveA(String input) {
 }
 
 int solveB(String input) {
-  final rom = IntcodeComputer.parse(input);
+  final memory = IntcodeComputer.parse(input);
 
   for (var noun = 0; noun <= 99; noun++) {
     for (var verb = 0; verb <= 99; verb++) {
-      var memory = rom.toList(growable: false);
-
       memory[1] = noun;
       memory[2] = verb;
-      memory = (IntcodeComputer(memory)..computeWithoutOutput()).memory;
+      final result = (IntcodeComputer(memory)..computeWithoutOutput()).memory;
 
-      if (memory.first == 19690720) {
+      if (result.first == 19690720) {
         return 100 * noun + verb;
       }
     }
