@@ -14,4 +14,10 @@ void main() {
           solveA(File(dataFilePath).readAsLinesSync().first), equals(117312));
     });
   });
+  group('Part Two', () {
+    test('Solution', () {
+      expect(
+          solveB(File(dataFilePath).readAsLinesSync().first), equals(1336480));
+    });
+  });
 }

@@ -3,6 +3,7 @@ class IntcodeComputer {
   static const mode_immediate = '1';
 
   final List<int> memory;
+  bool isRunning = true;
 
   IntcodeComputer(List<int> memory)
       : this.memory = memory.toList(growable: false);
@@ -17,8 +18,7 @@ class IntcodeComputer {
     }
   }
 
-  Iterable<int> compute([Iterable<int> input = const []]) sync* {
-    final inputStream = input.iterator;
+  Iterable<int> compute([List<int> input = const []]) sync* {
     var pos = 0;
 
     // 99 = halt
@@ -47,9 +47,7 @@ class IntcodeComputer {
         case '03': // input:
           final val1 = _getValue(memory, pos++, mode_immediate);
 
-          memory[val1] = inputStream.moveNext()
-              ? inputStream.current
-              : throw Exception('No more input!');
+          memory[val1] = input.removeAt(0);
           break;
         case '04': // output
           final val1 = _getValue(memory, pos++, mode1);
@@ -86,6 +84,8 @@ class IntcodeComputer {
           throw Exception('OpCode $opCode is not supported');
       }
     }
+
+    isRunning = false;
   }
 
   static int _getValue(List<int> memory, int pos, String mode) {
