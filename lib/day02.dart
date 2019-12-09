@@ -14,7 +14,7 @@ int solveA(String input) {
   memory[1] = 12;
   memory[2] = 2;
 
-  return (IntcodeComputer(memory)..computeWithoutOutput()).memory.first;
+  return (IntcodeComputer(memory)..computeWithoutOutput()).memory[0];
 }
 
 int solveB(String input) {
@@ -26,7 +26,7 @@ int solveB(String input) {
       memory[2] = verb;
       final result = (IntcodeComputer(memory)..computeWithoutOutput()).memory;
 
-      if (result.first == 19690720) {
+      if (result[0] == 19690720) {
         return 100 * noun + verb;
       }
     }
@@ -36,4 +36,4 @@ int solveB(String input) {
 }
 
 List<int> testParseAndCompute(String input) =>
-    (IntcodeComputer.fromString(input)..computeWithoutOutput()).memory;
+    (IntcodeComputer.fromString(input)..computeWithoutOutput()).memory.toList();

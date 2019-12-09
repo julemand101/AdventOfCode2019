@@ -33,7 +33,7 @@ int solveB(String input) {
   return maxThrusterSignal;
 }
 
-int loop(List<IntcodeComputer> amps, List<int> memory, List<int> combination) {
+int loop(List<IntcodeComputer> amps, Memory memory, List<int> combination) {
   final inputA = [combination[0], 0];
   final inputB = [combination[1]];
   final inputC = [combination[2]];
