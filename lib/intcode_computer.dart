@@ -125,11 +125,11 @@ class IntcodeComputer {
 
   int _getValueInterpreted(int pos, String mode) {
     switch (mode) {
-      case mode_immediate:
-        return memory[pos];
-        break;
       case mode_position:
         return memory[memory[pos]];
+        break;
+      case mode_immediate:
+        return memory[pos];
         break;
       case mode_relative:
         return memory[memory[pos] + relativeBase];
@@ -140,8 +140,8 @@ class IntcodeComputer {
 
   int _getValueLiteral(int pos, String mode) {
     switch (mode) {
-      case mode_immediate:
       case mode_position:
+      case mode_immediate:
         return memory[pos];
         break;
       case mode_relative:
