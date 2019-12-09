@@ -31,52 +31,52 @@ class IntcodeComputer {
 
       switch (opCode) {
         case '01': // adds
-          final val1 = _getValue(memory, pos++, mode1);
-          final val2 = _getValue(memory, pos++, mode2);
-          final val3 = _getValue(memory, pos++, mode_immediate);
+          final val1 = _getValue(pos++, mode1);
+          final val2 = _getValue(pos++, mode2);
+          final val3 = _getValue(pos++, mode_immediate);
 
           memory[val3] = val1 + val2;
           break;
         case '02': // multiplies
-          final val1 = _getValue(memory, pos++, mode1);
-          final val2 = _getValue(memory, pos++, mode2);
-          final val3 = _getValue(memory, pos++, mode_immediate);
+          final val1 = _getValue(pos++, mode1);
+          final val2 = _getValue(pos++, mode2);
+          final val3 = _getValue(pos++, mode_immediate);
 
           memory[val3] = val1 * val2;
           break;
         case '03': // input:
-          final val1 = _getValue(memory, pos++, mode_immediate);
+          final val1 = _getValue(pos++, mode_immediate);
 
           memory[val1] = input.removeAt(0);
           break;
         case '04': // output
-          final val1 = _getValue(memory, pos++, mode1);
+          final val1 = _getValue(pos++, mode1);
 
           yield val1;
           break;
         case '05': // jump-if-true
-          final val1 = _getValue(memory, pos++, mode1);
-          final val2 = _getValue(memory, pos++, mode2);
+          final val1 = _getValue(pos++, mode1);
+          final val2 = _getValue(pos++, mode2);
 
           if (val1 != 0) pos = val2;
           break;
         case '06': // jump-if-false
-          final val1 = _getValue(memory, pos++, mode1);
-          final val2 = _getValue(memory, pos++, mode2);
+          final val1 = _getValue(pos++, mode1);
+          final val2 = _getValue(pos++, mode2);
 
           if (val1 == 0) pos = val2;
           break;
         case '07': // less than
-          final val1 = _getValue(memory, pos++, mode1);
-          final val2 = _getValue(memory, pos++, mode2);
-          final val3 = _getValue(memory, pos++, mode_immediate);
+          final val1 = _getValue(pos++, mode1);
+          final val2 = _getValue(pos++, mode2);
+          final val3 = _getValue(pos++, mode_immediate);
 
           memory[val3] = val1 < val2 ? 1 : 0;
           break;
         case '08': // equals
-          final val1 = _getValue(memory, pos++, mode1);
-          final val2 = _getValue(memory, pos++, mode2);
-          final val3 = _getValue(memory, pos++, mode_immediate);
+          final val1 = _getValue(pos++, mode1);
+          final val2 = _getValue(pos++, mode2);
+          final val3 = _getValue(pos++, mode_immediate);
 
           memory[val3] = val1 == val2 ? 1 : 0;
           break;
@@ -88,7 +88,7 @@ class IntcodeComputer {
     isRunning = false;
   }
 
-  static int _getValue(List<int> memory, int pos, String mode) {
+  int _getValue(int pos, String mode) {
     switch (mode) {
       case mode_immediate:
         return memory[pos];
