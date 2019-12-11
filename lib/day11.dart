@@ -12,14 +12,45 @@ const int right = 1;
 
 enum Direction { up, right, down, left }
 
-int solveA(String intcodeProgram) {
+int solveA(String intcodeProgram) => paint(intcodeProgram, 0).length;
+
+String solveB(String intcodeProgram) {
+  final area = paint(intcodeProgram, 1);
+
+  var maxX = 0, maxY = 0;
+  for (final mapEntry in area.entries) {
+    if (mapEntry.value == 1) {
+      maxX = max(maxX, mapEntry.key.x);
+      maxY = max(maxY, mapEntry.key.y);
+    }
+  }
+
+  final grid =
+      List.generate(maxY + 1, (_) => List.generate(maxX + 1, (_) => ' '));
+
+  for (final mapEntry in area.entries) {
+    if (mapEntry.value == 1) {
+      grid[mapEntry.key.y][mapEntry.key.x] = '█';
+    }
+  }
+
+  final sb = StringBuffer();
+  for (final line in grid) {
+    sb.writeAll(line);
+    sb.writeln();
+  }
+
+  return sb.toString();
+}
+
+Map<Point<int>, int> paint(String intcodeProgram, int startColor) {
   final computer = IntcodeComputer.fromString(intcodeProgram);
   final panels = <Point<int>, int>{};
 
   var currentPosition = const Point(0, 0);
   var currentDirection = Direction.up;
 
-  final input = <int>[0];
+  final input = <int>[startColor];
   final outputPair = <int>[];
 
   for (final out in computer.compute(input: input, removeFromList: false)) {
@@ -39,7 +70,7 @@ int solveA(String intcodeProgram) {
     }
   }
 
-  return panels.length;
+  return panels;
 }
 
 Direction changeDirection(int move, Direction currentDirection) {
