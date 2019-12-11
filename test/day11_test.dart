@@ -1,0 +1,16 @@
+// --- Day 11: Space Police ---
+// https://adventofcode.com/2019/day/11
+
+import 'dart:io';
+import 'package:test/test.dart';
+import 'package:AdventOfCode2019/day11.dart';
+
+const String dataFilePath = 'test/data/day11.txt';
+
+void main() {
+  group('Part One', () {
+    test('Solution', () {
+      expect(solveA(File(dataFilePath).readAsLinesSync().first), equals(1883));
+    });
+  });
+}
