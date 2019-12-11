@@ -49,7 +49,8 @@ class IntcodeComputer {
     }
   }
 
-  Iterable<int> compute([List<int> input = const []]) sync* {
+  Iterable<int> compute(
+      {List<int> input = const [], bool removeFromList = true}) sync* {
     var pos = 0;
 
     // 99 = halt
@@ -78,7 +79,7 @@ class IntcodeComputer {
         case '03': // input:
           final val1 = _getValueLiteral(pos++, mode1);
 
-          memory[val1] = input.removeAt(0);
+          memory[val1] = removeFromList ? input.removeAt(0) : input[0];
           break;
         case '04': // output
           final val1 = _getValueInterpreted(pos++, mode1);

@@ -8,12 +8,12 @@ int solveA(String input) {
   final memory = IntcodeComputer.parse(input);
   var maxThrusterSignal = 0;
 
-  for (final combination in combinations(List.generate(5, (i) => i))) {
-    final amqA = IntcodeComputer(memory).compute([combination[0], 0]);
-    final amqB = IntcodeComputer(memory).compute([combination[1], amqA.first]);
-    final amqC = IntcodeComputer(memory).compute([combination[2], amqB.first]);
-    final amqD = IntcodeComputer(memory).compute([combination[3], amqC.first]);
-    final amqE = IntcodeComputer(memory).compute([combination[4], amqD.first]);
+  for (final com in combinations(List.generate(5, (i) => i))) {
+    final amqA = IntcodeComputer(memory).compute(input: [com[0], 0]);
+    final amqB = IntcodeComputer(memory).compute(input: [com[1], amqA.first]);
+    final amqC = IntcodeComputer(memory).compute(input: [com[2], amqB.first]);
+    final amqD = IntcodeComputer(memory).compute(input: [com[3], amqC.first]);
+    final amqE = IntcodeComputer(memory).compute(input: [com[4], amqD.first]);
 
     maxThrusterSignal = max(maxThrusterSignal, amqE.first);
   }
@@ -40,11 +40,11 @@ int loop(List<IntcodeComputer> amps, Memory memory, List<int> combination) {
   final inputD = [combination[3]];
   final inputE = [combination[4]];
 
-  final amqAOut = amps[0].compute(inputA).iterator;
-  final amqBOut = amps[1].compute(inputB).iterator;
-  final amqCOut = amps[2].compute(inputC).iterator;
-  final amqDOut = amps[3].compute(inputD).iterator;
-  final amqEOut = amps[4].compute(inputE).iterator;
+  final amqAOut = amps[0].compute(input: inputA).iterator;
+  final amqBOut = amps[1].compute(input: inputB).iterator;
+  final amqCOut = amps[2].compute(input: inputC).iterator;
+  final amqDOut = amps[3].compute(input: inputD).iterator;
+  final amqEOut = amps[4].compute(input: inputE).iterator;
 
   var lastValue = 0;
 

@@ -3,5 +3,5 @@
 
 import 'intcode_computer.dart';
 
-int solveA(String s) => IntcodeComputer.fromString(s).compute([1]).first;
-int solveB(String s) => IntcodeComputer.fromString(s).compute([2]).first;
+int solveA(String s) => IntcodeComputer.fromString(s).compute(input: [1]).first;
+int solveB(String s) => IntcodeComputer.fromString(s).compute(input: [2]).first;
