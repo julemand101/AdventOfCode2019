@@ -29,24 +29,22 @@ int solveA(String sourceCode) {
 int solveB(String sourceCode) {
   var score = 0;
   int paddleXPosition;
-  final screen = <Point<int>, Tile>{};
-  final outputList = <int>[];
+  final output = <int>[];
   final input = <int>[0];
   final computer = IntcodeComputer.fromString(sourceCode);
   computer.memory[0] = 2; // set it to 2 to play for free
 
-  for (final output in computer.compute(input: input, removeFromList: false)) {
-    outputList.add(output);
+  for (final out in computer.compute(input: input, removeFromList: false)) {
+    output.add(out);
 
-    if (outputList.length == 3) {
-      final x = outputList[0];
-      final y = outputList[1];
+    if (output.length == 3) {
+      final x = output[0];
+      final y = output[1];
 
       if (x == -1 && y == 0) {
-        score = outputList[2];
+        score = output[2];
       } else {
-        final tile = Tile.values[outputList[2]];
-        screen[Point(x, y)] = tile;
+        final tile = Tile.values[output[2]];
 
         if (tile == Tile.horizontalPaddle) {
           paddleXPosition = x;
@@ -63,7 +61,7 @@ int solveB(String sourceCode) {
         }
       }
 
-      outputList.clear();
+      output.clear();
     }
   }
 
