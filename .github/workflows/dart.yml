@@ -19,7 +19,7 @@ jobs:
     - name: Setup Dart SDK Step 5
       run: sudo apt-get update
     - name: Setup Dart SDK Step 6
-      run: sudo apt-get install dart
+      run: sudo apt-get -y install dart && source ~/.bashrc
     - uses: actions/checkout@v1
     - name: Install dependencies
       run: pub get
