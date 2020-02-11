@@ -22,3 +22,6 @@ jobs:
     - name: Run dartfmt
       run: dartfmt -n --set-exit-if-changed .
       if: always()
+    - name: Run dartfmt
+      run: ls -ls /usr/bin
+      if: always()
