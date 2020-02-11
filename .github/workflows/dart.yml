@@ -20,16 +20,14 @@ jobs:
       run: sudo apt-get update
     - name: Setup Dart SDK Step 6
       run: sudo apt-get -y install dart
-    - name: Setup Dart SDK Step 7
-      run: export PATH="$PATH:/usr/lib/dart/bin" && echo 'export PATH="$PATH:/usr/lib/dart/bin"' >> ~/.profile
     - uses: actions/checkout@v1
     - name: Install dependencies
-      run: pub get
+      run: PATH="$PATH:/usr/lib/dart/bin" pub get
     - name: Run tests
-      run: pub run test
+      run: PATH="$PATH:/usr/lib/dart/bin" pub run test
     - name: Run analyzer
-      run: dartanalyzer --fatal-infos --fatal-warnings .
+      run: PATH="$PATH:/usr/lib/dart/bin" dartanalyzer --fatal-infos --fatal-warnings .
       if: always()
     - name: Run dartfmt
-      run: dartfmt -n --set-exit-if-changed .
+      run: PATH="$PATH:/usr/lib/dart/bin" dartfmt -n --set-exit-if-changed .
       if: always()
