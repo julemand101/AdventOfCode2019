@@ -3,9 +3,6 @@ import 'dart:math';
 class Memory {
   final Map<int, int> _data = {};
 
-  int operator [](int pos) => _data[pos] ?? 0;
-  void operator []=(int pos, int value) => _data[pos] = value;
-
   Memory(Iterable<int> input) {
     var i = 0;
     for (final value in input) {
@@ -13,20 +10,15 @@ class Memory {
     }
   }
 
-  Memory.clone(Memory memory) {
+  Memory.from(Memory memory) {
     _data.addAll(memory._data);
   }
 
-  List<int> toList() {
-    final maxKey = _data.keys.reduce(max) + 1;
-    final result = List<int>(maxKey);
+  int operator [](int pos) => _data.get(pos, 0);
+  void operator []=(int pos, int value) => _data[pos] = value;
 
-    for (var i = 0; i < maxKey; i++) {
-      result[i] = this[i];
-    }
-
-    return result;
-  }
+  List<int> toList() =>
+      List.generate(_data.keys.reduce(max) + 1, (index) => this[index]);
 }
 
 class IntcodeComputer {
@@ -38,23 +30,19 @@ class IntcodeComputer {
   int relativeBase = 0;
   bool isRunning = true;
 
-  IntcodeComputer(Memory memory) : this.memory = Memory.clone(memory);
+  IntcodeComputer(Memory memory) : this.memory = Memory.from(memory);
   IntcodeComputer.fromString(String input) : this.memory = parse(input);
 
   static Memory parse(String input) => Memory(input.split(',').map(int.parse));
 
-  void computeWithoutOutput() {
-    for (final _ in compute()) {
-      // Empty since we just want to throw the output away
-    }
-  }
+  void computeWithoutOutput() => compute().length;
 
   Iterable<int> compute(
       {List<int> input = const [], bool removeFromList = true}) sync* {
     var pos = 0;
 
-    // 99 = halt
-    while (!memory[pos].toString().endsWith('99')) {
+    // Ends with 99 = halt
+    while (memory[pos] % 100 != 99) {
       final parameter = memory[pos++].toString().padLeft(5, '0');
       final mode1 = parameter[2];
       final mode2 = parameter[1];
@@ -128,10 +116,8 @@ class IntcodeComputer {
     switch (mode) {
       case mode_position:
         return memory[memory[pos]];
-        break;
       case mode_immediate:
         return memory[pos];
-        break;
       case mode_relative:
         return memory[memory[pos] + relativeBase];
       default:
@@ -144,11 +130,14 @@ class IntcodeComputer {
       case mode_position:
       case mode_immediate:
         return memory[pos];
-        break;
       case mode_relative:
         return memory[pos] + relativeBase;
       default:
         throw Exception('Mode $mode is not supported!');
     }
   }
+}
+
+extension StrictMap<K, V> on Map<K, V> {
+  V get(K k, [V defaultValue]) => containsKey(k) ? this[k] : defaultValue;
 }
