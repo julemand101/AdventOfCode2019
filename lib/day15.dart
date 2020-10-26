@@ -60,7 +60,7 @@ const hit_wall = 0, moved_step = 1, moved_step_and_found_oxygen = 2;
 const oppositeDirection = [null, south, north, east, west];
 
 int solveA(String inputProgram) {
-  final memoryMasterCopy = IntcodeComputer.parse(inputProgram);
+  final memoryMasterCopy = Memory.fromString(inputProgram);
   final map = ShipMap();
 
   final unvisited = {const Point(0, 0)};

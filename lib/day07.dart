@@ -5,7 +5,7 @@ import 'dart:math';
 import 'intcode_computer.dart';
 
 int solveA(String input) {
-  final memory = IntcodeComputer.parse(input);
+  final memory = Memory.fromString(input);
   var maxThrusterSignal = 0;
 
   for (final com in combinations(List.generate(5, (i) => i))) {
@@ -22,7 +22,7 @@ int solveA(String input) {
 }
 
 int solveB(String input) {
-  final memory = IntcodeComputer.parse(input);
+  final memory = Memory.fromString(input);
   var maxThrusterSignal = 0;
 
   for (final combination in combinations(List.generate(5, (i) => 5 + i))) {

@@ -4,7 +4,7 @@
 import 'intcode_computer.dart';
 
 int solveA(String input) {
-  final memory = IntcodeComputer.parse(input);
+  final memory = Memory.fromString(input);
 
   // Once you have a working computer, the first step is to restore the gravity
   // assist program (your puzzle input) to the "1202 program alarm" state it had
@@ -18,7 +18,7 @@ int solveA(String input) {
 }
 
 int solveB(String input) {
-  final memory = IntcodeComputer.parse(input);
+  final memory = Memory.fromString(input);
 
   for (var noun = 0; noun <= 99; noun++) {
     for (var verb = 0; verb <= 99; verb++) {

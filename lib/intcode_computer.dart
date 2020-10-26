@@ -1,18 +1,18 @@
 import 'dart:math';
 
 class Memory {
-  final Map<int, int> _data = {};
+  final Map<int, int> _data;
 
-  Memory(Iterable<int> input) {
+  Memory(Iterable<int> input) : _data = {} {
     var i = 0;
     for (final value in input) {
-      this[i++] = value;
+      _data[i++] = value;
     }
   }
 
-  Memory.from(Memory memory) {
-    _data.addAll(memory._data);
-  }
+  Memory.fromString(String input) : this(input.split(',').map(int.parse));
+
+  Memory.copy(Memory memory) : _data = Map.from(memory._data);
 
   int operator [](int pos) => _data.get(pos, 0);
   void operator []=(int pos, int value) => _data[pos] = value;
@@ -30,10 +30,10 @@ class IntcodeComputer {
   int relativeBase = 0;
   bool isRunning = true;
 
-  IntcodeComputer(Memory memory) : this.memory = Memory.from(memory);
-  IntcodeComputer.fromString(String input) : this.memory = parse(input);
+  IntcodeComputer(Memory memory) : this.memory = Memory.copy(memory);
 
-  static Memory parse(String input) => Memory(input.split(',').map(int.parse));
+  IntcodeComputer.fromString(String input)
+      : this.memory = Memory.fromString(input);
 
   void computeWithoutOutput() => compute().length;
 
