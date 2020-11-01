@@ -60,17 +60,17 @@ const hit_wall = 0, moved_step = 1, moved_step_and_found_oxygen = 2;
 const oppositeDirection = [null, south, north, east, west];
 
 int solveA(String inputProgram) {
-  final memoryMasterCopy = Memory.fromString(inputProgram);
+  final unvisited = {
+    const Point(0, 0): IntcodeComputer.fromString(inputProgram)
+  };
   final map = ShipMap();
 
-  final unvisited = {const Point(0, 0)};
-
   while (unvisited.isNotEmpty) {
-    final pointWithLowestRouteLength = unvisited.reduce((p1, p2) =>
+    final pointWithLowestRouteLength = unvisited.keys.reduce((p1, p2) =>
         map.get(p1).route.length < map.get(p2).route.length ? p1 : p2);
     final nodeWithLowestRuteLength = map.get(pointWithLowestRouteLength);
 
-    unvisited.remove(pointWithLowestRouteLength);
+    final computer = unvisited.remove(pointWithLowestRouteLength);
     nodeWithLowestRuteLength.isVisited = true;
 
     final neighbourPoints = {
@@ -83,28 +83,17 @@ int solveA(String inputProgram) {
       east:
           Point(pointWithLowestRouteLength.x + 1, pointWithLowestRouteLength.y),
     }..removeWhere((_, point) => map.get(point).isVisited);
-    unvisited.addAll(neighbourPoints.values);
-
-    final computer = IntcodeComputer(memoryMasterCopy);
-    final input = [...nodeWithLowestRuteLength.route];
-    final iterator = computer.compute(input: input).iterator;
-
-    while (input.isNotEmpty) {
-      iterator.moveNext();
-    }
 
     for (final entry in neighbourPoints.entries) {
       final direction = entry.key;
       final point = entry.value;
       final node = map.get(point);
-
-      input.add(direction);
-      final result = (iterator..moveNext()).current;
+      final newComputer = IntcodeComputer.fromIntCodeComputer(computer);
+      final result = (newComputer..input.add(direction)).runUntilOutputOrDone();
 
       if (result == hit_wall) {
         node.isWall = true;
         node.isVisited = true;
-        unvisited.remove(point);
       } else if (result == moved_step ||
           result == moved_step_and_found_oxygen) {
         node.isOxygen = result == moved_step_and_found_oxygen;
@@ -114,15 +103,12 @@ int solveA(String inputProgram) {
           node.route = newRoute;
         }
 
-        // Move back
-        input.add(oppositeDirection[direction]);
-        iterator.moveNext();
+        unvisited[point] = newComputer;
       } else {
         throw Exception('Should never happen!');
       }
     }
   }
 
-  print(map);
   return map.getOxygen().route.length;
 }

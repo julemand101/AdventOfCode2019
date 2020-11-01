@@ -30,17 +30,38 @@ class IntcodeComputer {
   int relativeBase = 0;
   bool isRunning = true;
 
+  bool removeFromList = true;
+  List<int> input = [];
+  int pos = 0;
+
   IntcodeComputer(Memory memory) : this.memory = Memory.copy(memory);
 
   IntcodeComputer.fromString(String input)
       : this.memory = Memory.fromString(input);
 
+  factory IntcodeComputer.fromIntCodeComputer(IntcodeComputer computer) =>
+      IntcodeComputer(computer.memory)
+        ..relativeBase = computer.relativeBase
+        ..isRunning = computer.isRunning
+        ..removeFromList = computer.removeFromList
+        ..input = computer.input.toList()
+        ..pos = computer.pos;
+
   void computeWithoutOutput() => compute().length;
 
   Iterable<int> compute(
       {List<int> input = const [], bool removeFromList = true}) sync* {
-    var pos = 0;
+    this.input = input;
+    this.removeFromList = removeFromList;
 
+    int value;
+    while ((value = runUntilOutputOrDone()) != null) {
+      yield value;
+    }
+  }
+
+  // null = done, value = output but code can still be executed
+  int runUntilOutputOrDone() {
     // Ends with 99 = halt
     while (memory[pos] % 100 != 99) {
       final parameter = memory[pos++].toString().padLeft(5, '0');
@@ -72,7 +93,7 @@ class IntcodeComputer {
         case '04': // output
           final val1 = _getValueInterpreted(pos++, mode1);
 
-          yield val1;
+          return val1;
           break;
         case '05': // jump-if-true
           final val1 = _getValueInterpreted(pos++, mode1);
@@ -110,6 +131,9 @@ class IntcodeComputer {
     }
 
     isRunning = false;
+
+    // ignore: avoid_returning_null
+    return null;
   }
 
   int _getValueInterpreted(int pos, String mode) {
