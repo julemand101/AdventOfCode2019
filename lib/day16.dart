@@ -24,7 +24,25 @@ String solveA(String line, {int phases = 100}) {
     signal = newSignal;
   }
 
-  return signal.take(8).join('');
+  return signal.take(8).join();
+}
+
+String solveB(String line, {int phases = 100}) {
+  final offset = int.parse(line.substring(0, 7));
+  var signal = parse((line * 10000).substring(offset));
+
+  for (var phase = 0; phase < phases; phase++) {
+    final newSignal = List.filled(signal.length, 0, growable: false);
+    var sum = 0;
+
+    for (var i = signal.length - 1; i >= 0; i--) {
+      newSignal[i] = (sum += signal[i]) % 10;
+    }
+
+    signal = newSignal;
+  }
+
+  return signal.take(8).join();
 }
 
 Iterable<int> generatePattern(int positionInTheOutputList) => () sync* {

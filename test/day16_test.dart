@@ -15,7 +15,7 @@ void main() {
     test('Example 1b', () {
       expect(solveA('12345678', phases: 2), equals('34040438'));
     });
-    test('Example c', () {
+    test('Example 1c', () {
       expect(solveA('12345678', phases: 3), equals('03415518'));
     });
     test('Example 1d', () {
@@ -33,6 +33,21 @@ void main() {
     test('Solution', () {
       expect(solveA(File(dataFilePath).readAsLinesSync().first),
           equals('77038830'));
+    });
+  });
+  group('Part Two', () {
+    test('Example 1', () {
+      expect(solveB('03036732577212944063491565474664'), equals('84462026'));
+    });
+    test('Example 2', () {
+      expect(solveB('02935109699940807407585447034323'), equals('78725270'));
+    });
+    test('Example 3', () {
+      expect(solveB('03081770884921959731165446850517'), equals('53553731'));
+    });
+    test('Solution', () {
+      expect(solveB(File(dataFilePath).readAsLinesSync().first),
+          equals('28135104'));
     });
   });
 }
