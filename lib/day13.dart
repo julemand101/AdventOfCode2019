@@ -28,7 +28,7 @@ int solveA(String sourceCode) {
 
 int solveB(String sourceCode) {
   var score = 0;
-  int paddleXPosition;
+  int? paddleXPosition;
   final output = <int>[];
   final input = <int>[0];
   final computer = IntcodeComputer.fromString(sourceCode);

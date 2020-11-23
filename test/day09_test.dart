@@ -3,8 +3,8 @@
 
 import 'dart:io';
 import 'package:test/test.dart';
-import 'package:AdventOfCode2019/day09.dart';
-import 'package:AdventOfCode2019/intcode_computer.dart';
+import 'package:advent_of_code_2019/day09.dart';
+import 'package:advent_of_code_2019/intcode_computer.dart';
 
 const String dataFilePath = 'test/data/day09.txt';
 

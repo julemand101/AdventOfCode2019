@@ -72,7 +72,7 @@ int solveB(List<String> input) {
 
       if (angleToAsteroid.containsKey(angle)) {
         if (asteroid.distanceTo(station) <
-            angleToAsteroid[angle].distanceTo(station)) {
+            angleToAsteroid[angle]!.distanceTo(station)) {
           angleToAsteroid[angle] = asteroid;
         }
       } else {
@@ -84,7 +84,7 @@ int solveB(List<String> input) {
     anglesOfAsteroidsToDestroy.sort();
 
     for (final degree in anglesOfAsteroidsToDestroy.reversed) {
-      final asteroidToRemove = angleToAsteroid[degree];
+      final asteroidToRemove = angleToAsteroid[degree]!;
       asteroids.remove(asteroidToRemove);
 
       if (++asteroidsDestroyed == 200) {
@@ -98,7 +98,7 @@ int solveB(List<String> input) {
 
 Result findStation(List<Point<int>> asteroids) {
   var maxAsteroidsDetected = 0;
-  Point<int> maxAsteroidsDetectedPoint;
+  Point<int>? maxAsteroidsDetectedPoint;
 
   for (final asteroid1 in asteroids) {
     final set = <double>{};
@@ -116,5 +116,5 @@ Result findStation(List<Point<int>> asteroids) {
     }
   }
 
-  return Result(maxAsteroidsDetected, maxAsteroidsDetectedPoint);
+  return Result(maxAsteroidsDetected, maxAsteroidsDetectedPoint!);
 }

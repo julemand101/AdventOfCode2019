@@ -2,7 +2,7 @@
 // https://adventofcode.com/2019/day/12
 
 class Moon {
-  int positionX, positionY, positionZ;
+  late int positionX, positionY, positionZ;
   int velocityX = 0, velocityY = 0, velocityZ = 0;
 
   // <x=2, y=-10, z=-7>
@@ -11,7 +11,7 @@ class Moon {
   Moon(String input) {
     final parsed = _pattern
         .allMatches(input)
-        .map((match) => int.parse(match.group(0)))
+        .map((match) => int.parse(match.group(0)!))
         .toList(growable: false);
 
     positionX = parsed[0];

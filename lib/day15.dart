@@ -40,7 +40,7 @@ class ShipMap {
         final point = Point(x, y);
 
         if (_data.containsKey(point)) {
-          final value = _data[point];
+          final value = _data[point]!;
 
           if (value.isWall) {
             sb.write('#');
@@ -96,7 +96,7 @@ ShipMap solve(String inputProgram) {
         map.get(p1).route.length < map.get(p2).route.length ? p1 : p2);
     final nodeWithLowestRuteLength = map.get(pointWithLowestRouteLength);
 
-    final computer = unvisited.remove(pointWithLowestRouteLength);
+    final computer = unvisited.remove(pointWithLowestRouteLength)!;
     nodeWithLowestRuteLength.isVisited = true;
 
     final neighbourPoints = {

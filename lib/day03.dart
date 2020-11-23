@@ -30,7 +30,7 @@ Map<Point<int>, int> findIntersections(Iterable<String> input) {
     var currentDistance = 0;
 
     for (final instruction in line.split(',')) {
-      final move = moveOperationMap[instruction[0]];
+      final move = moveOperationMap[instruction[0]]!;
       final length = int.parse(instruction.substring(1));
 
       for (var i = 0; i < length; i++) {
@@ -47,7 +47,7 @@ Map<Point<int>, int> findIntersections(Iterable<String> input) {
       if (!globalPoints.containsKey(point.key)) {
         globalPoints[point.key] = point.value;
       } else {
-        intersections[point.key] = globalPoints[point.key] + point.value;
+        intersections[point.key] = globalPoints[point.key]! + point.value;
       }
     }
   }

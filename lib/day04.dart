@@ -29,7 +29,7 @@ bool validatePassword(String password, bool checkLargeGroup) {
   if (checkLargeGroup) {
     // Part B: Part of a larger group of matching digits (but still allow the
     // password if there are a group in the password with the size of exact 2)
-    if (matches.where((match) => match.group(0).length == 2).isEmpty) {
+    if (matches.where((match) => match.group(0)!.length == 2).isEmpty) {
       return false;
     }
   } else {

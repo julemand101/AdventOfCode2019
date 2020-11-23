@@ -26,3 +26,46 @@ int solveA(String line) {
 
   return result;
 }
+
+int solveB(String line) {
+  final computer = IntcodeComputer.fromString(line);
+  final grid = LineSplitter.split(ascii.decode(computer.compute().toList()))
+      .toList()
+        ..removeLast(); // Remove empty line at the end
+  grid.forEach(print);
+
+  return 0;
+}
+
+enum Orientation { up, right, down, left }
+
+Iterable<String> getRoute(List<String> grid) sync* {
+  int x, y;
+  Orientation? orientation;
+
+  findXYOfVacuumRobotLoop:
+  for (var _y = 0; _y < grid.length; _y++) {
+    for (var _x = 0; _x < grid[_y].length; _x++) {
+      switch (grid[_y][_x]) {
+        case '^':
+          orientation = Orientation.up;
+          break;
+        case 'v':
+          orientation = Orientation.down;
+          break;
+        case '<':
+          orientation = Orientation.left;
+          break;
+        case '>':
+          orientation = Orientation.right;
+          break;
+      }
+
+      if (orientation != null) {
+        x = _x;
+        y = _y;
+        break findXYOfVacuumRobotLoop;
+      }
+    }
+  }
+}

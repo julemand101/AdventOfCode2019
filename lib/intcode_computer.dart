@@ -54,14 +54,14 @@ class IntcodeComputer {
     this.input = input;
     this.removeFromList = removeFromList;
 
-    int value;
+    int? value;
     while ((value = runUntilOutputOrDone()) != null) {
-      yield value;
+      yield value!;
     }
   }
 
   // null = done, value = output but code can still be executed
-  int runUntilOutputOrDone() {
+  int? runUntilOutputOrDone() {
     // Ends with 99 = halt
     while (memory[pos] % 100 != 99) {
       final parameter = memory[pos++].toString().padLeft(5, '0');
@@ -94,7 +94,6 @@ class IntcodeComputer {
           final val1 = _getValueInterpreted(pos++, mode1);
 
           return val1;
-          break;
         case '05': // jump-if-true
           final val1 = _getValueInterpreted(pos++, mode1);
           final val2 = _getValueInterpreted(pos++, mode2);
@@ -163,5 +162,5 @@ class IntcodeComputer {
 }
 
 extension StrictMap<K, V> on Map<K, V> {
-  V get(K k, [V defaultValue]) => containsKey(k) ? this[k] : defaultValue;
+  V get(K k, V defaultValue) => containsKey(k) ? this[k]! : defaultValue;
 }

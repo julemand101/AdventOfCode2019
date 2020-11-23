@@ -36,12 +36,12 @@ class Reaction {
 // Key: Name of output from reaction | Value: Reaction
 int calcOresNeeded(Map<String, Reaction> reactions, int fuelNeeded) {
   final storage = {'FUEL': -fuelNeeded};
-  var chemicalNeeded = storage.entries.first;
+  MapEntry<String, int>? chemicalNeeded = storage.entries.first;
   var ores = 0;
 
   // Run as long we still have chemicals in storage in negative quantities
   while (chemicalNeeded != null) {
-    final reaction = reactions[chemicalNeeded.key];
+    final reaction = reactions[chemicalNeeded.key]!;
     final factor = (chemicalNeeded.value.abs() / reaction.out.quantity).ceil();
 
     // Put chemical produced in storage
@@ -60,8 +60,14 @@ int calcOresNeeded(Map<String, Reaction> reactions, int fuelNeeded) {
     }
 
     // Find next chemical we need to make
-    chemicalNeeded = storage.entries
-        .firstWhere((element) => element.value < 0, orElse: () => null);
+    chemicalNeeded = null;
+
+    for (final element in storage.entries) {
+      if (element.value < 0) {
+        chemicalNeeded = element;
+        break;
+      }
+    }
   }
 
   return ores;

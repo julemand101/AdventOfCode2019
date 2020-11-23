@@ -2,10 +2,10 @@
 // https://adventofcode.com/2019/day/6
 
 class ObjectInSpace {
-  ObjectInSpace orbitAround;
+  ObjectInSpace? orbitAround;
 
   int get directAndIndirectOrbits =>
-      orbitAround == null ? 0 : 1 + orbitAround.directAndIndirectOrbits;
+      orbitAround == null ? 0 : 1 + orbitAround!.directAndIndirectOrbits;
 }
 
 int solveA(Iterable<String> inputs) {
@@ -25,12 +25,14 @@ int solveA(Iterable<String> inputs) {
 
 class ObjectInSpaceTwoWay {
   final List<ObjectInSpaceTwoWay> orbitedBy = [];
-  ObjectInSpaceTwoWay orbitAround;
-  int distanceFromStart;
+  ObjectInSpaceTwoWay? orbitAround;
+  int? distanceFromStart;
 
   Iterable<ObjectInSpaceTwoWay> get orbitsNotVisited sync* {
-    if (orbitAround != null && orbitAround.distanceFromStart == null) {
-      yield orbitAround;
+    final _orbitAround = orbitAround;
+
+    if (_orbitAround != null && _orbitAround.distanceFromStart == null) {
+      yield _orbitAround;
     }
 
     yield* orbitedBy.where((o) => o.distanceFromStart == null);
@@ -53,6 +55,6 @@ int solveB(Iterable<String> inputs) {
     o1.orbitedBy.add(o2);
   }
 
-  map['YOU'].orbitAround.visit();
-  return map['SAN'].orbitAround.distanceFromStart;
+  map['YOU']!.orbitAround!.visit();
+  return map['SAN']!.orbitAround!.distanceFromStart!;
 }

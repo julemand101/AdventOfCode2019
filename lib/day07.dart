@@ -49,20 +49,14 @@ int loop(List<IntcodeComputer> amps, Memory memory, List<int> combination) {
   var lastValue = 0;
 
   while (amps.any((amp) => amp.isRunning)) {
-    amqAOut.moveNext();
-    inputB.add(amqAOut.current);
-
-    amqBOut.moveNext();
-    inputC.add(amqBOut.current);
-
-    amqCOut.moveNext();
-    inputD.add(amqCOut.current);
-
-    amqDOut.moveNext();
-    inputE.add(amqDOut.current);
-
-    if (amqEOut.moveNext()) lastValue = amqEOut.current;
-    inputA.add(amqEOut.current);
+    if (amqAOut.moveNext()) inputB.add(amqAOut.current);
+    if (amqBOut.moveNext()) inputC.add(amqBOut.current);
+    if (amqCOut.moveNext()) inputD.add(amqCOut.current);
+    if (amqDOut.moveNext()) inputE.add(amqDOut.current);
+    if (amqEOut.moveNext()) {
+      lastValue = amqEOut.current;
+      inputA.add(amqEOut.current);
+    }
   }
 
   return lastValue;

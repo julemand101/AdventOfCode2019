@@ -88,8 +88,6 @@ Direction changeDirection(int move, Direction currentDirection) {
     case Direction.left:
       return (move == left) ? Direction.down : Direction.up;
   }
-
-  throw Exception('Should never happen!');
 }
 
 Point<int> move(Point<int> currentPosition, Direction direction) {
@@ -103,6 +101,4 @@ Point<int> move(Point<int> currentPosition, Direction direction) {
     case Direction.left:
       return Point(currentPosition.x - 1, currentPosition.y);
   }
-
-  throw Exception('Should never happen!');
 }
