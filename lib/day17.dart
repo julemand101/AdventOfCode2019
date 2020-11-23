@@ -40,7 +40,7 @@ int solveB(String line) {
 enum Orientation { up, right, down, left }
 
 Iterable<String> getRoute(List<String> grid) sync* {
-  int x, y;
+  //int x, y;
   Orientation? orientation;
 
   findXYOfVacuumRobotLoop:
@@ -62,8 +62,8 @@ Iterable<String> getRoute(List<String> grid) sync* {
       }
 
       if (orientation != null) {
-        x = _x;
-        y = _y;
+        //x = _x;
+        //y = _y;
         break findXYOfVacuumRobotLoop;
       }
     }
