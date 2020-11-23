@@ -17,5 +17,5 @@ void main() {
     test('Solution', () {
       expect(solveB(File(dataFilePath).readAsLinesSync().first), equals(-1));
     });
-  });
+  }, skip: true);
 }
