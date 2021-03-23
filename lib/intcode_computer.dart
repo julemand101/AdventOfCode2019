@@ -162,5 +162,5 @@ class IntcodeComputer {
 }
 
 extension StrictMap<K, V> on Map<K, V> {
-  V get(K k, V defaultValue) => containsKey(k) ? this[k]! : defaultValue;
+  V get(K k, V defaultValue) => containsKey(k) ? this[k] as V : defaultValue;
 }
