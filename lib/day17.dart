@@ -9,7 +9,7 @@ int solveA(String line) {
   final computer = IntcodeComputer.fromString(line);
   final grid = LineSplitter.split(ascii.decode(computer.compute().toList()))
       .toList()
-        ..removeLast(); // Remove empty line at the end
+    ..removeLast(); // Remove empty line at the end
   var result = 0;
 
   for (var y = 1; y < grid.length - 1; y++) {
@@ -31,7 +31,7 @@ int solveB(String line) {
   final computer = IntcodeComputer.fromString(line);
   final grid = LineSplitter.split(ascii.decode(computer.compute().toList()))
       .toList()
-        ..removeLast(); // Remove empty line at the end
+    ..removeLast(); // Remove empty line at the end
   grid.forEach(print);
 
   return 0;

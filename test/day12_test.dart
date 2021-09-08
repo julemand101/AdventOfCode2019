@@ -1,8 +1,8 @@
 // --- Day 12: The N-Body Problem ---
 // https://adventofcode.com/2019/day/12
 
-import 'package:test/test.dart';
 import 'package:advent_of_code_2019/day12.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Part One', () {
