@@ -1,8 +1,8 @@
 // --- Day 4: Secure Container ---
 // https://adventofcode.com/2019/day/4
 
-import 'package:test/test.dart';
 import 'package:advent_of_code_2019/day04.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Part One', () {

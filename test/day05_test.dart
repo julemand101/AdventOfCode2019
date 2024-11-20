@@ -2,8 +2,8 @@
 // https://adventofcode.com/2019/day/5
 
 import 'dart:io';
-import 'package:test/test.dart';
 import 'package:advent_of_code_2019/day05.dart';
+import 'package:test/test.dart';
 
 const String dataFilePath = 'test/data/day05.txt';
 
