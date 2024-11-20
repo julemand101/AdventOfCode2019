@@ -11,9 +11,9 @@ int solveB(Iterable<String> input) =>
 
 int manhattanDistance(Point<int> point) => point.x.abs() + point.y.abs();
 
-typedef moveOperation = Point<int> Function(Point<int> point);
+typedef MoveOperation = Point<int> Function(Point<int> point);
 
-final Map<String, moveOperation> moveOperationMap = {
+final Map<String, MoveOperation> moveOperationMap = {
   'U': (Point<int> point) => Point(point.x, point.y + 1), // Up
   'D': (Point<int> point) => Point(point.x, point.y - 1), // Down
   'L': (Point<int> point) => Point(point.x - 1, point.y), // Left

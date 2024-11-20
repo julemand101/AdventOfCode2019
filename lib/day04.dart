@@ -5,9 +5,9 @@ int solveA(String input) => solve(input, false);
 int solveB(String input) => solve(input, true);
 
 int solve(String input, bool checkLargeGroup) {
-  final _parts = input.split('-');
-  final from = int.parse(_parts[0]);
-  final to = int.parse(_parts[1]);
+  final parts = input.split('-');
+  final from = int.parse(parts[0]);
+  final to = int.parse(parts[1]);
   var validPasswords = 0;
 
   for (var i = from; i <= to; i++) {

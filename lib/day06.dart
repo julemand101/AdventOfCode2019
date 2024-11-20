@@ -29,10 +29,9 @@ class ObjectInSpaceTwoWay {
   int? distanceFromStart;
 
   Iterable<ObjectInSpaceTwoWay> get orbitsNotVisited sync* {
-    final _orbitAround = orbitAround;
-
-    if (_orbitAround != null && _orbitAround.distanceFromStart == null) {
-      yield _orbitAround;
+    if (orbitAround case final orbitAround?
+        when orbitAround.distanceFromStart == null) {
+      yield orbitAround;
     }
 
     yield* orbitedBy.where((o) => o.distanceFromStart == null);
@@ -40,7 +39,9 @@ class ObjectInSpaceTwoWay {
 
   void visit([int distance = 0]) {
     distanceFromStart = distance;
-    orbitsNotVisited.forEach((o) => o.visit(distance + 1));
+    for (final o in orbitsNotVisited) {
+      o.visit(distance + 1);
+    }
   }
 }
 

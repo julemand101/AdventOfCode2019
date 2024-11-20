@@ -9,7 +9,7 @@ int solveA(String line) {
   final computer = IntcodeComputer.fromString(line);
   final grid = LineSplitter.split(ascii.decode(computer.compute().toList()))
       .toList()
-        ..removeLast(); // Remove empty line at the end
+    ..removeLast(); // Remove empty line at the end
   var result = 0;
 
   for (var y = 1; y < grid.length - 1; y++) {
@@ -31,7 +31,7 @@ int solveB(String line) {
   final computer = IntcodeComputer.fromString(line);
   final grid = LineSplitter.split(ascii.decode(computer.compute().toList()))
       .toList()
-        ..removeLast(); // Remove empty line at the end
+    ..removeLast(); // Remove empty line at the end
   grid.forEach(print);
 
   return 0;
@@ -44,9 +44,9 @@ Iterable<String> getRoute(List<String> grid) sync* {
   Orientation? orientation;
 
   findXYOfVacuumRobotLoop:
-  for (var _y = 0; _y < grid.length; _y++) {
-    for (var _x = 0; _x < grid[_y].length; _x++) {
-      switch (grid[_y][_x]) {
+  for (var y = 0; y < grid.length; y++) {
+    for (var x = 0; x < grid[y].length; x++) {
+      switch (grid[y][x]) {
         case '^':
           orientation = Orientation.up;
           break;

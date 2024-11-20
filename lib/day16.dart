@@ -65,5 +65,5 @@ Iterable<int> generatePattern(int positionInTheOutputList) => () sync* {
         .skip(1);
 
 extension LastDigit on int {
-  int get lastDigit => this.abs() % 10;
+  int get lastDigit => abs() % 10;
 }

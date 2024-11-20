@@ -92,5 +92,7 @@ void simulate(List<Moon> moons) {
     }
   }
 
-  moons.forEach((moon) => moon.applyVelocity());
+  for (final moon in moons) {
+    moon.applyVelocity();
+  }
 }

@@ -22,9 +22,9 @@ class Memory {
 }
 
 class IntcodeComputer {
-  static const mode_position = '0';
-  static const mode_immediate = '1';
-  static const mode_relative = '2';
+  static const modePosition = '0';
+  static const modeImmediate = '1';
+  static const modeRelative = '2';
 
   final Memory memory;
   int relativeBase = 0;
@@ -34,10 +34,9 @@ class IntcodeComputer {
   List<int> input = [];
   int pos = 0;
 
-  IntcodeComputer(Memory memory) : this.memory = Memory.copy(memory);
+  IntcodeComputer(Memory memory) : memory = Memory.copy(memory);
 
-  IntcodeComputer.fromString(String input)
-      : this.memory = Memory.fromString(input);
+  IntcodeComputer.fromString(String input) : memory = Memory.fromString(input);
 
   factory IntcodeComputer.fromIntCodeComputer(IntcodeComputer computer) =>
       IntcodeComputer(computer.memory)
@@ -137,11 +136,11 @@ class IntcodeComputer {
 
   int _getValueInterpreted(int pos, String mode) {
     switch (mode) {
-      case mode_position:
+      case modePosition:
         return memory[memory[pos]];
-      case mode_immediate:
+      case modeImmediate:
         return memory[pos];
-      case mode_relative:
+      case modeRelative:
         return memory[memory[pos] + relativeBase];
       default:
         throw Exception('Mode $mode is not supported!');
@@ -150,10 +149,10 @@ class IntcodeComputer {
 
   int _getValueLiteral(int pos, String mode) {
     switch (mode) {
-      case mode_position:
-      case mode_immediate:
+      case modePosition:
+      case modeImmediate:
         return memory[pos];
-      case mode_relative:
+      case modeRelative:
         return memory[pos] + relativeBase;
       default:
         throw Exception('Mode $mode is not supported!');

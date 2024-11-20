@@ -60,7 +60,7 @@ class ShipMap {
 }
 
 const north = 1, south = 2, west = 3, east = 4;
-const hit_wall = 0, moved_step = 1, moved_step_and_found_oxygen = 2;
+const hitWall = 0, movedStep = 1, movedStepAndFoundOxygen = 2;
 const oppositeDirection = [null, south, north, east, west];
 
 int solveA(String inputProgram) => solve(inputProgram).getOxygen().route.length;
@@ -79,7 +79,9 @@ int solveB(String inputProgram) {
         nodesToFillWithOxygen.add(map.get(point));
       }
     }
-    nodesToFillWithOxygen.forEach((node) => node.isOxygen = true);
+    for (final node in nodesToFillWithOxygen) {
+      node.isOxygen = true;
+    }
   }
 
   return minutes;
@@ -113,12 +115,11 @@ ShipMap solve(String inputProgram) {
       final newComputer = IntcodeComputer.fromIntCodeComputer(computer);
       final result = (newComputer..input.add(direction)).runUntilOutputOrDone();
 
-      if (result == hit_wall) {
+      if (result == hitWall) {
         node.isWall = true;
         node.isVisited = true;
-      } else if (result == moved_step ||
-          result == moved_step_and_found_oxygen) {
-        node.isOxygen = result == moved_step_and_found_oxygen;
+      } else if (result == movedStep || result == movedStepAndFoundOxygen) {
+        node.isOxygen = result == movedStepAndFoundOxygen;
 
         final newRoute = [...nodeWithLowestRuteLength.route, direction];
         if (node.route.isEmpty || newRoute.length < node.route.length) {
