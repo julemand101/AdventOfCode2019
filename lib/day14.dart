@@ -24,9 +24,9 @@ class Reaction {
 
   factory Reaction.fromString(String line) {
     final parts = line.split(' => ');
-    return Reaction(
-        [...parts[0].split(', ').map((string) => Chemical.fromString(string))],
-        Chemical.fromString(parts[1]));
+    return Reaction([
+      ...parts[0].split(', ').map((string) => Chemical.fromString(string)),
+    ], Chemical.fromString(parts[1]));
   }
 
   @override
@@ -46,7 +46,9 @@ int calcOresNeeded(Map<String, Reaction> reactions, int fuelNeeded) {
 
     // Put chemical produced in storage
     storage.update(
-        reaction.out.name, (value) => value + reaction.out.quantity * factor);
+      reaction.out.name,
+      (value) => value + reaction.out.quantity * factor,
+    );
 
     // Remove chemical we need from storage.
     for (final chemical in reaction.inputs) {
@@ -54,8 +56,10 @@ int calcOresNeeded(Map<String, Reaction> reactions, int fuelNeeded) {
         ores += chemical.quantity * factor;
       } else {
         storage.update(
-            chemical.name, (value) => value - (chemical.quantity * factor),
-            ifAbsent: () => -(chemical.quantity * factor));
+          chemical.name,
+          (value) => value - (chemical.quantity * factor),
+          ifAbsent: () => -(chemical.quantity * factor),
+        );
       }
     }
 
@@ -74,16 +78,20 @@ int calcOresNeeded(Map<String, Reaction> reactions, int fuelNeeded) {
 }
 
 int solveA(Iterable<String> lines) {
-  final reactions = Map.fromEntries(lines
-      .map((line) => Reaction.fromString(line))
-      .map((reaction) => MapEntry(reaction.out.name, reaction)));
+  final reactions = Map.fromEntries(
+    lines
+        .map((line) => Reaction.fromString(line))
+        .map((reaction) => MapEntry(reaction.out.name, reaction)),
+  );
   return calcOresNeeded(reactions, 1);
 }
 
 int solveB(Iterable<String> lines) {
-  final reactions = Map.fromEntries(lines
-      .map((line) => Reaction.fromString(line))
-      .map((reaction) => MapEntry(reaction.out.name, reaction)));
+  final reactions = Map.fromEntries(
+    lines
+        .map((line) => Reaction.fromString(line))
+        .map((reaction) => MapEntry(reaction.out.name, reaction)),
+  );
   return binarySearch(reactions, 1000000000000, 1, 1000000000000);
 }
 

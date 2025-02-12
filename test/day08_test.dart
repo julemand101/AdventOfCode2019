@@ -15,13 +15,16 @@ void main() {
   });
   group('Part Two', () {
     test('Solution', () {
-      expect(solveB(File(dataFilePath).readAsLinesSync().first), equals('''
+      expect(
+        solveB(File(dataFilePath).readAsLinesSync().first),
+        equals('''
 ████ █  █  ██  █  █ █    
 █    █ █  █  █ █  █ █    
 ███  ██   █  █ ████ █    
 █    █ █  ████ █  █ █    
 █    █ █  █  █ █  █ █    
-█    █  █ █  █ █  █ ████ '''));
+█    █  █ █  █ █  █ ████ '''),
+      );
     });
   });
 }

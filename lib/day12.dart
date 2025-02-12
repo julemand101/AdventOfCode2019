@@ -20,9 +20,9 @@ class Moon {
   }
 
   Moon.clone(Moon moon)
-      : positionX = moon.positionX,
-        positionY = moon.positionY,
-        positionZ = moon.positionZ;
+    : positionX = moon.positionX,
+      positionY = moon.positionY,
+      positionZ = moon.positionZ;
 
   void updateVelocity(Moon other) {
     velocityX += other.positionX.compareTo(positionX);
@@ -67,7 +67,7 @@ int solveB(Iterable<String> input) {
   return [
     loopUntil(moons, (moon) => moon.velocityX == 0) * 2,
     loopUntil(moons, (moon) => moon.velocityY == 0) * 2,
-    loopUntil(moons, (moon) => moon.velocityZ == 0) * 2
+    loopUntil(moons, (moon) => moon.velocityZ == 0) * 2,
   ].reduce((int a, int b) => a * b ~/ a.gcd(b)); // least common multiple (LCM)
 }
 

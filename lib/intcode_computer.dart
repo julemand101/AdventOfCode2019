@@ -48,8 +48,10 @@ class IntcodeComputer {
 
   void computeWithoutOutput() => compute().length;
 
-  Iterable<int> compute(
-      {List<int> input = const [], bool removeFromList = true}) sync* {
+  Iterable<int> compute({
+    List<int> input = const [],
+    bool removeFromList = true,
+  }) sync* {
     this.input = input;
     this.removeFromList = removeFromList;
 

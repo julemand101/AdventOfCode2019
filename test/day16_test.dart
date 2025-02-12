@@ -31,8 +31,10 @@ void main() {
       expect(solveA('69317163492948606335995924319873'), equals('52432133'));
     });
     test('Solution', () {
-      expect(solveA(File(dataFilePath).readAsLinesSync().first),
-          equals('77038830'));
+      expect(
+        solveA(File(dataFilePath).readAsLinesSync().first),
+        equals('77038830'),
+      );
     });
   });
   group('Part Two', () {
@@ -46,8 +48,10 @@ void main() {
       expect(solveB('03081770884921959731165446850517'), equals('53553731'));
     });
     test('Solution', () {
-      expect(solveB(File(dataFilePath).readAsLinesSync().first),
-          equals('28135104'));
+      expect(
+        solveB(File(dataFilePath).readAsLinesSync().first),
+        equals('28135104'),
+      );
     });
   });
 }

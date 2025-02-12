@@ -89,13 +89,14 @@ int solveB(String inputProgram) {
 
 ShipMap solve(String inputProgram) {
   final unvisited = {
-    const Point(0, 0): IntcodeComputer.fromString(inputProgram)
+    const Point(0, 0): IntcodeComputer.fromString(inputProgram),
   };
   final map = ShipMap();
 
   while (unvisited.isNotEmpty) {
-    final pointWithLowestRouteLength = unvisited.keys.reduce((p1, p2) =>
-        map.get(p1).route.length < map.get(p2).route.length ? p1 : p2);
+    final pointWithLowestRouteLength = unvisited.keys.reduce(
+      (p1, p2) => map.get(p1).route.length < map.get(p2).route.length ? p1 : p2,
+    );
     final nodeWithLowestRuteLength = map.get(pointWithLowestRouteLength);
 
     final computer = unvisited.remove(pointWithLowestRouteLength)!;

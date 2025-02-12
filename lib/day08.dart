@@ -12,8 +12,11 @@ class ImageLayer {
   int countDigit(int digit) => data.where((d) => d == digit).length;
   int get oneAndTwoDigitsMultiplied => countDigit(1) * countDigit(2);
 
-  static Iterable<ImageLayer> getLayers(String input,
-      {int pixelsWide = 25, int pixelsTall = 6}) sync* {
+  static Iterable<ImageLayer> getLayers(
+    String input, {
+    int pixelsWide = 25,
+    int pixelsTall = 6,
+  }) sync* {
     for (var i = 0; i < input.length;) {
       final layer = ImageLayer(pixelsWide, pixelsTall);
 
@@ -53,9 +56,10 @@ class ImageLayer {
   }
 }
 
-int solveA(String input) => ImageLayer.getLayers(input)
-    .reduce((a, b) => a.countDigit(0) < b.countDigit(0) ? a : b)
-    .oneAndTwoDigitsMultiplied;
+int solveA(String input) =>
+    ImageLayer.getLayers(input)
+        .reduce((a, b) => a.countDigit(0) < b.countDigit(0) ? a : b)
+        .oneAndTwoDigitsMultiplied;
 
 String solveB(String input) =>
     ImageLayer.getLayers(input).reduce((a, b) => a..addLayer(b)).toString();

@@ -25,8 +25,10 @@ String solveB(String intcodeProgram) {
     }
   }
 
-  final grid =
-      List.generate(maxY + 1, (_) => List.generate(maxX + 1, (_) => ' '));
+  final grid = List.generate(
+    maxY + 1,
+    (_) => List.generate(maxX + 1, (_) => ' '),
+  );
 
   for (final mapEntry in area.entries) {
     if (mapEntry.value == 1) {

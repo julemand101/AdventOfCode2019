@@ -11,13 +11,17 @@ void main() {
   group('Part One', () {
     test('Solution', () {
       expect(
-          solveA(File(dataFilePath).readAsLinesSync().first), equals(7839346));
+        solveA(File(dataFilePath).readAsLinesSync().first),
+        equals(7839346),
+      );
     });
   });
   group('Part Two', () {
     test('Solution', () {
       expect(
-          solveB(File(dataFilePath).readAsLinesSync().first), equals(447803));
+        solveB(File(dataFilePath).readAsLinesSync().first),
+        equals(447803),
+      );
     });
   });
 }

@@ -17,7 +17,7 @@ final Map<String, MoveOperation> moveOperationMap = {
   'U': (Point<int> point) => Point(point.x, point.y + 1), // Up
   'D': (Point<int> point) => Point(point.x, point.y - 1), // Down
   'L': (Point<int> point) => Point(point.x - 1, point.y), // Left
-  'R': (Point<int> point) => Point(point.x + 1, point.y) //  Right
+  'R': (Point<int> point) => Point(point.x + 1, point.y), //  Right
 };
 
 Map<Point<int>, int> findIntersections(Iterable<String> input) {

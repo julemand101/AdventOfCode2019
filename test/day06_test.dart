@@ -11,20 +11,21 @@ void main() {
   group('Part One', () {
     test('Example 1', () {
       expect(
-          solveA(const [
-            'COM)B',
-            'B)C',
-            'C)D',
-            'D)E',
-            'E)F',
-            'B)G',
-            'G)H',
-            'D)I',
-            'E)J',
-            'J)K',
-            'K)L',
-          ]),
-          equals(42));
+        solveA(const [
+          'COM)B',
+          'B)C',
+          'C)D',
+          'D)E',
+          'E)F',
+          'B)G',
+          'G)H',
+          'D)I',
+          'E)J',
+          'J)K',
+          'K)L',
+        ]),
+        equals(42),
+      );
     });
     test('Solution', () {
       expect(solveA(File(dataFilePath).readAsLinesSync()), equals(253104));
@@ -33,22 +34,23 @@ void main() {
   group('Part Two', () {
     test('Example 1', () {
       expect(
-          solveB(const [
-            'COM)B',
-            'B)C',
-            'C)D',
-            'D)E',
-            'E)F',
-            'B)G',
-            'G)H',
-            'D)I',
-            'E)J',
-            'J)K',
-            'K)L',
-            'K)YOU',
-            'I)SAN',
-          ]),
-          equals(4));
+        solveB(const [
+          'COM)B',
+          'B)C',
+          'C)D',
+          'D)E',
+          'E)F',
+          'B)G',
+          'G)H',
+          'D)I',
+          'E)J',
+          'J)K',
+          'K)L',
+          'K)YOU',
+          'I)SAN',
+        ]),
+        equals(4),
+      );
     });
     test('Solution', () {
       expect(solveB(File(dataFilePath).readAsLinesSync()), equals(499));

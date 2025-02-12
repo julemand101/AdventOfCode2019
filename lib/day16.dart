@@ -1,9 +1,11 @@
 // --- Day 16: Flawed Frequency Transmission ---
 // https://adventofcode.com/2019/day/16
 
-List<int> parse(String line) =>
-    List.generate(line.length, (index) => int.parse(line[index]),
-        growable: false);
+List<int> parse(String line) => List.generate(
+  line.length,
+  (index) => int.parse(line[index]),
+  growable: false,
+);
 
 String solveA(String line, {int phases = 100}) {
   var signal = parse(line);
@@ -46,23 +48,22 @@ String solveB(String line, {int phases = 100}) {
 }
 
 Iterable<int> generatePattern(int positionInTheOutputList) => () sync* {
-      // ignore: literal_only_boolean_expressions
-      while (true) {
-        for (var i = 0; i <= positionInTheOutputList; i++) {
-          yield 0;
-        }
-        for (var i = 0; i <= positionInTheOutputList; i++) {
-          yield 1;
-        }
-        for (var i = 0; i <= positionInTheOutputList; i++) {
-          yield 0;
-        }
-        for (var i = 0; i <= positionInTheOutputList; i++) {
-          yield -1;
-        }
-      }
-    }()
-        .skip(1);
+  // ignore: literal_only_boolean_expressions
+  while (true) {
+    for (var i = 0; i <= positionInTheOutputList; i++) {
+      yield 0;
+    }
+    for (var i = 0; i <= positionInTheOutputList; i++) {
+      yield 1;
+    }
+    for (var i = 0; i <= positionInTheOutputList; i++) {
+      yield 0;
+    }
+    for (var i = 0; i <= positionInTheOutputList; i++) {
+      yield -1;
+    }
+  }
+}().skip(1);
 
 extension LastDigit on int {
   int get lastDigit => abs() % 10;
