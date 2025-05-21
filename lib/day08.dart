@@ -56,10 +56,9 @@ class ImageLayer {
   }
 }
 
-int solveA(String input) =>
-    ImageLayer.getLayers(input)
-        .reduce((a, b) => a.countDigit(0) < b.countDigit(0) ? a : b)
-        .oneAndTwoDigitsMultiplied;
+int solveA(String input) => ImageLayer.getLayers(input)
+    .reduce((a, b) => a.countDigit(0) < b.countDigit(0) ? a : b)
+    .oneAndTwoDigitsMultiplied;
 
 String solveB(String input) =>
     ImageLayer.getLayers(input).reduce((a, b) => a..addLayer(b)).toString();

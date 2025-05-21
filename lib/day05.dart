@@ -3,12 +3,10 @@
 
 import 'intcode_computer.dart';
 
-int solveA(String s) =>
-    IntcodeComputer.fromString(
-      s,
-    ).compute(input: [1]).where((out) => out != 0).first;
+int solveA(String input) => IntcodeComputer.fromString(
+  input,
+).compute(input: [1]).where((out) => out != 0).first;
 
-int solveB(String s) =>
-    IntcodeComputer.fromString(
-      s,
-    ).compute(input: [5]).where((out) => out != 0).first;
+int solveB(String input) => IntcodeComputer.fromString(
+  input,
+).compute(input: [5]).where((out) => out != 0).first;
